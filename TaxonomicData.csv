@@ -1,0 +1,34 @@
+fungus,Genus species,Taxonomic identification,Order,Phylum,NCBI,DSMZ
+A,Phoma sp. 3,Pyrenochaetopsis leptospora,Pleosporales,Ascomycota,KT582065,DSM 100327
+C11,Myrothecium roridum,Myrothecium roridum,Hypocreales,Ascomycota,KT582090,DSM 101519 
+C13,Chaetomium sp. 2,Chaetomium elatum,Sordariales,Ascomycota,KT582096,DSM 100400
+C21,Tetracladium furcatum ,Tetracladium furcatum ,Helotiales,Ascomycota,KT582084,DSM 100330
+C23,Truncatella angustata ,Truncatella angustata ,Xylariales ,Ascomycota,KT582088,DSM 100284
+C29,Phoma like sp.,Paraphoma sp,Pleosporales,Ascomycota,KT582091,DSM 100401
+C31,Cadophora sp. ,Cadophora sp. ,Helotiales,Ascomycota,KT582085,DSM 100323
+C33,Chaetomium sp. ,Corynascella inaequalis,Sordariales,Ascomycota,KT582086,DSM 100326
+C41,Fusarium sp.2 ,Fusarium redolens,Hypocreales,Ascomycota,KT582097,DSM 100403
+DF4,Phoma sp. 2,Nothophoma quercina,Pleosporales,Ascomycota,KT582077,DSM 100404
+DF9,Alternaria sp.,Alternaria sp.,Pleosporales,Ascomycota,KT582078,DSM 100286
+DF10,Chaetomium globosum,Chaetomium globosum,Sordariales,Ascomycota,KT582079,DSM 100405
+DF13,Phoma sp.,Phoma macrostoma ,Pleosporales,Ascomycota,KT582082,DSM 101518 
+DF16,Fusarium sp. ,Fusarium incarnatum-equiseti ,Hypocreales,Ascomycota,KT582068,DSM 100287
+DF32,Fusarium solani,Fusarium solani,Hypocreales, Ascomycota,KT582073,DSM 100290
+DF35,Phialophora sp.,Cyphellophora sp.,Chaetothyriales, Ascomycota,KT582074,DSM 100328
+DF36,Exophiala salmonis,Exophiala salmonis,Chaetothyriales, Ascomycota,KT582075,DSM 100291
+DF37,Gliomastix murorum,Gliomastix murorum,Hypocreales,Ascomycota,KT582083,DSM 100292
+DF58,Purpureocillium lilacinum ,Purpureocillium lilacinum ,Hypocreales,Ascomycota,KT582081,DSM 100329
+DISC,Fusarium sporotrichioides,Fusarium sp.,Hypocreales,Ascomycota,KT582087,DSM 100325
+J,Paecilomyces marquandii,Paecilomyces (Metarhizium) marquandii,Hypocreales,Ascomycota,KT582066,DSM 100410
+FOX,Fusarium oxysporum ,,Hypocreales,Ascomycota,KT582095,DSM 100409
+C34,Mortierella like sp.,Mortierella elongata,Mortierellales,Mucoromycotina,KT582092,DSM 100402
+C35,Umbelopsis isabellina ,Umbelopsis isabellina ,Mucorales,Mucoromycotina,KT582093,DSM 100331
+C40,Mortierella sp. 2,Mortierella sp. ,Mortierellales,Mucoromycotina,KT582094,DSM 100322
+DF19,Mortierella sp. 3,Mortierella alpina,Mortierellales,Mucoromycotina,KT582070,DSM 100289
+DF25,Mortierella sp. ,Mortierella elongata,Mortierellales,Mucoromycotina,KT582072,DSM 100407
+DF56,Mucor fragilis,Mucor fragilis,Mucorales,Mucoromycotina,KT582076,DSM 100293
+M,Mortierella alpina,Mortierella alpina,Mortierellales,Mucoromycotina,KT582067,DSM 100285
+C28,Clitopilus sp.,Clitopilus sp.,Agaricales,Basidiomycota,KT582089,DSM 100324
+DF17,Macrolepiota excoriata,Macrolepiota excoriata,Agaricales,Basidiomycota,KT582069,DSM 100288
+DF24,Trametes versicolor ,Trametes versicolor ,Polyporales,Basidiomycota,KT582071,DSM 100406
+DF42,Pleurotus sapidus,Pleurotus sapidus,Agaricales,Basidiomycota,KT582080,DSM 100408
