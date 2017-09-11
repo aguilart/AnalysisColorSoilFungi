@@ -216,7 +216,7 @@ qqnorm(resid(ColorTemp)); qqline(resid(ColorTemp))  # residuals look close to no
 qqnorm(resid(ColorTemp2)); qqline(resid(ColorTemp2))  # residuals look close to normally distributed
 qqnorm(resid(ColorTemp.poly)); qqline(resid(ColorTemp.poly))  # residuals look poor, but...
 qqnorm(resid(ColorTemp.poly2)); qqline(resid(ColorTemp.poly2))  # residuals look poor, but...
-AICc(ColorTemp, ColorTemp2, ColorTemp.poly, ColorTemp.poly2)  # quadratic provides better fit, esp. with random slopes
+AICc(ColorTemp, ColorTemp2, ColorTemp.poly, ColorTemp.poly2, REML=F)  # quadratic provides better fit, esp. with random slopes
 
 Anova(ColorTemp.poly2)
 summary(ColorTemp.poly2)
@@ -237,7 +237,7 @@ BiomTemp.poly2<-
 qqnorm(resid(BiomTemp)); qqline(resid(BiomTemp))  # residuals look poor
 qqnorm(resid(BiomTemp.poly)); qqline(resid(BiomTemp.poly))  # residuals look poor
 qqnorm(resid(BiomTemp.poly2)); qqline(resid(BiomTemp.poly2))  # residuals look better
-AICc(BiomTemp, BiomTemp.poly, BiomTemp.poly2)  # quadratic provides better fit, esp. with random slopes
+AICc(BiomTemp, BiomTemp.poly, BiomTemp.poly2, REML=F)  # quadratic provides better fit, esp. with random slopes
 
 Anova(BiomTemp.poly2)
 summary(BiomTemp.poly2)
@@ -257,7 +257,7 @@ ExtensionTemp.poly2<-
 qqnorm(resid(ExtensionTemp)); qqline(resid(ExtensionTemp))  # residuals look poor
 qqnorm(resid(ExtensionTemp.poly)); qqline(resid(ExtensionTemp.poly))  # residuals look poor
 qqnorm(resid(ExtensionTemp.poly2)); qqline(resid(ExtensionTemp.poly2))  # residuals look better...
-AICc(ExtensionTemp, ExtensionTemp.poly, ExtensionTemp.poly2)  # quadratic provides better fit, esp. with random slopes
+AICc(ExtensionTemp, ExtensionTemp.poly, ExtensionTemp.poly2, REML=F)  # quadratic provides better fit, esp. with random slopes
 
 Anova(ExtensionTemp.poly)
 summary(ExtensionTemp.poly)
