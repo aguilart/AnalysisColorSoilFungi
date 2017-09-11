@@ -176,6 +176,8 @@ taxonomy<-read.csv("TaxonomicData.csv",header = TRUE, stringsAsFactors = FALSE)
 
 rm(list=ls()[2:16])
 
+# create linear and quadratic terms for temperature, or polynomial regression
+allData$temp.l <- poly(allData$temp, 2)[, 1]
+allData$temp.q <- poly(allData$temp, 2)[, 2]
 
- 
 head(allData)

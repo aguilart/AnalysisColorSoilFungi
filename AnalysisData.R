@@ -17,6 +17,9 @@ library(lme4) #statistics
 library(car) #statistics
 library(lattice)
 library(plyr)
+library(plotrix)
+library(MuMIn)
+
 
 ###Plot color, biomass and extension rate containing all fungi to see general patterns
 
@@ -136,6 +139,60 @@ ggplot(data=allData,
       
 
 
+#Alternatively, plot separate relationship for each fungus using polynomial regression
+quartz(height=9, width=4)
+
+layout(matrix(1:3, nrow=3))
+allData$Genus.species <- factor(allData$Genus.species)
+
+par(mar=c(1, 4.5, 3, 1))
+# plot relationship between colour and temp by isolate
+lmlis1 <- lmList(K.mean ~ poly(temp, 2) | Genus.species, data=allData)
+liscoef_K.mean <- coef(lmlis1)
+allData1 <- split(allData, allData$Genus.species)
+with(allData, plot(K.mean ~ temp, col=Genus.species, type='n', ylab='Culture blackness (\'K\')', 
+                   ylim=c(0, 0.65), xlab='', cex.lab=1.5))
+# legend('topright', 'P < 0.001', cex=0.8, bty='n')
+for(i in 1:length(allData1)){
+  xmin <- min(allData1[[i]]$temp)
+  xmax <- max(allData1[[i]]$temp)
+  lines(xmin:xmax, predict(lmlis1[[i]], data.frame(temp=xmin:xmax)), lwd=0.5)
+}
+
+par(mar=c(2, 4.5, 2, 1))
+# plot relationship between biomass and temp by isolate
+lmlis1 <- lmList(Biomass ~ poly(temp, 2) | Genus.species, data=allData)
+liscoef_Biomass <- coef(lmlis1)
+allData1 <- split(allData, allData$Genus.species)
+with(allData, plot(Biomass ~ temp, col=Genus.species, type='n', ylab='Biomass (mg)', 
+                   ylim=c(0, 250), xlab='', cex.lab=1.5))
+# legend('topright', 'P < 0.001', cex=0.8, bty='n')
+for(i in 1:length(allData1)){
+  xmin <- min(allData1[[i]]$temp)
+  xmax <- max(allData1[[i]]$temp)
+  lines(xmin:xmax, predict(lmlis1[[i]], data.frame(temp=xmin:xmax)), lwd=0.5)
+}
+
+par(mar=c(4, 4.5, 0, 1))
+# plot relationship between radius and temp by isolate
+lmlis1 <- lmList(meanExtension ~ poly(temp, 2) | Genus.species, data=allData)
+liscoef_meanExtension <- coef(lmlis1)
+allData1 <- split(allData, allData$Genus.species)
+with(allData, plot(meanExtension ~ temp, col=Genus.species, type='n', ylab='Colony extension rate (mm/d)', 
+ ylim=c(0, 0.25), xlab='Temperature (degrees C)', cex.lab=1.5))
+# legend('topright', 'P < 0.001', cex=0.8, bty='n')
+for(i in 1:length(allData1)){
+  xmin <- min(allData1[[i]]$temp)
+  xmax <- max(allData1[[i]]$temp)
+  lines(xmin:xmax, predict(lmlis1[[i]], data.frame(temp=xmin:xmax)), lwd=0.5)
+}
+
+dev.copy2pdf(file='output/predictedResponsesBySpecies.pdf')
+
+
+# write output
+# write.csv(allData, 'output/carlosSoil_colour.csv')
+
 
 
 ###Step 7: statistics
@@ -144,29 +201,67 @@ ggplot(data=allData,
 ColorTemp<-
   lmer(log10(K.mean)~temp+ #we decided to do statistics in a log10 function because data fits better
          (1|fungus),data = allData) #but only for statistics, not to show the data in figures
+ColorTemp2<-
+  lmer(log10(K.mean)~temp+ 
+         (temp|fungus),data = allData) 
+ColorTemp.poly<-
+  lmer(log10(K.mean)~temp.l+temp.q+ 
+         (1|fungus),data = allData) 
+ColorTemp.poly2<-
+  lmer(log10(K.mean)~temp.l+temp.q+ 
+         (temp.l+temp.q|fungus),data = allData) 
 
-Anova(ColorTemp)
-summary(ColorTemp)
-shapiro.test(residuals(ColorTemp))
+# compare two models
+qqnorm(resid(ColorTemp)); qqline(resid(ColorTemp))  # residuals look close to normally distributed
+qqnorm(resid(ColorTemp2)); qqline(resid(ColorTemp2))  # residuals look close to normally distributed
+qqnorm(resid(ColorTemp.poly)); qqline(resid(ColorTemp.poly))  # residuals look poor, but...
+qqnorm(resid(ColorTemp.poly2)); qqline(resid(ColorTemp.poly2))  # residuals look poor, but...
+AICc(ColorTemp, ColorTemp2, ColorTemp.poly, ColorTemp.poly2)  # quadratic provides better fit, esp. with random slopes
+
+Anova(ColorTemp.poly2)
+summary(ColorTemp.poly2)
+shapiro.test(residuals(ColorTemp.poly2))
+plot(ColorTemp.poly2)
+
 
 #8.2: statistics biomass
 BiomTemp<-
   lmer(Biomass~temp+ 
          (1|fungus),data = allData)
+BiomTemp.poly<-
+  lmer(Biomass~temp.l+temp.q+ 
+         (1|fungus),data = allData)
+BiomTemp.poly2<-
+  lmer(Biomass~temp.l+temp.q+ 
+         (temp.l|fungus),data = allData)
+qqnorm(resid(BiomTemp)); qqline(resid(BiomTemp))  # residuals look poor
+qqnorm(resid(BiomTemp.poly)); qqline(resid(BiomTemp.poly))  # residuals look poor
+qqnorm(resid(BiomTemp.poly2)); qqline(resid(BiomTemp.poly2))  # residuals look better
+AICc(BiomTemp, BiomTemp.poly, BiomTemp.poly2)  # quadratic provides better fit, esp. with random slopes
 
-Anova(BiomTemp)
-summary(BiomTemp)
-shapiro.test(residuals(BiomTemp))
-qplot(residuals(BiomTemp))
+Anova(BiomTemp.poly2)
+summary(BiomTemp.poly2)
+shapiro.test(residuals(BiomTemp.poly2))
+plot(BiomTemp.poly2)
 
 #8.3: statistics: Extension
 ExtensionTemp<-
   lmer(meanExtension~temp+ 
          (1|fungus),data = allData) 
+ExtensionTemp.poly<-
+  lmer(meanExtension~temp.l+temp.q+ 
+         (1|fungus),data = allData) 
+ExtensionTemp.poly2<-
+  lmer(meanExtension~temp.l+temp.q+ 
+         (temp.l+temp.q|fungus),data = allData) 
+qqnorm(resid(ExtensionTemp)); qqline(resid(ExtensionTemp))  # residuals look poor
+qqnorm(resid(ExtensionTemp.poly)); qqline(resid(ExtensionTemp.poly))  # residuals look poor
+qqnorm(resid(ExtensionTemp.poly2)); qqline(resid(ExtensionTemp.poly2))  # residuals look better...
+AICc(ExtensionTemp, ExtensionTemp.poly, ExtensionTemp.poly2)  # quadratic provides better fit, esp. with random slopes
 
-Anova(ExtensionTemp)
-summary(ExtensionTemp)
-shapiro.test(residuals(ExtensionTemp))
+Anova(ExtensionTemp.poly)
+summary(ExtensionTemp.poly)
+shapiro.test(residuals(ExtensionTemp.poly))
 
 
 #9.0 Simpler analysis for each fungus
